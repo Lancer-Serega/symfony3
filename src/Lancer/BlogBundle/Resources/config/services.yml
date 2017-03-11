@@ -1,0 +1,6 @@
+services:
+    lancer_user.password_resetting:
+        class: Lancer\BlogBundle\EventListener\PasswordResettingListener
+        arguments: ['@router']
+        tags:
+            - { name: kernel.event_subscriber }
