@@ -1,32 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-</head>
-<body>
-<div>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'messages') }} |
-        <a href="{{ path('fos_user_security_logout') }}">
-            {{ 'layout.logout'|trans({}, 'messages') }}
-        </a>
-        <p>{{ 'layout.your_role'|trans({}, 'messages') }}</p>
-    {% else %}
-        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'messages') }}</a>
-    {% endif %}
-</div>
+{% extends '@Blog/Default/base.html.twig' %}
 
-{% for type, messages in app.session.flashBag.all %}
-    {% for message in messages %}
-        <div class="{{ type }}">
-            {{ message|trans({}, 'messages') }}
-        </div>
+{% block auth %}
+    <div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'messages') }} |
+            <a href="{{ path('blog_security_logout') }}">
+                {{ 'layout.logout'|trans({}, 'messages') }}
+            </a>
+            {% if role %}
+                <p>{{ 'layout.your_role'|trans({'%role%': role }, 'messages') }}</p>
+            {% endif %}
+            <p>{{ 'layout.your_roles'|trans({}, 'messages') }}</p>
+            <ul>
+                {% for role in roles %}
+                    <li>{{ role }}</li>
+                {% else %}
+                    <li><em>no roles found</em></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <a href="{{ path('blog_security_login') }}">{{ 'layout.login'|trans({}, 'messages') }}</a>
+        {% endif %}
+    </div>
+
+    {% for type, messages in app.session.flashBag.all %}
+        {% for message in messages %}
+            <div class="{{ type }}">
+                {{ message|trans({}, 'messages') }}
+            </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
 
-<div>
-    {% block fos_user_content %}
-    {% endblock fos_user_content %}
-</div>
-</body>
-</html>
+    <div>
+        {% block blog_content %}
+        {% endblock blog_content %}
+    </div>
+{% endblock %}

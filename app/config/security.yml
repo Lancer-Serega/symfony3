@@ -31,9 +31,15 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             #form_login: ~
     encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
+        FOS\UserBundle\Model\UserInterface:
+            algorithm:        pbkdf2
+            hash_algorithm:   sha512
+            encode_as_base64: true
+            iterations:       1234
+            key_length:       40
 
 
+#    roles:
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN

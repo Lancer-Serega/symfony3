@@ -73,9 +73,10 @@ resetting:
 layout:
     logout: Выход
     login: Вход
-    register: Регистрация
-    logged_in_as: 'Вы вошли как %username%'
-    your_role: 'Ваша роль %email%'
+    register: 'Завести аккаунт'
+    logged_in_as: 'Ваше имя - %username%'
+    your_role: 'Ваша роль %role%'
+    your_roles: 'Ваши роли: '
 form:
     group_name: 'Название группы'
     username: 'Имя пользователя'

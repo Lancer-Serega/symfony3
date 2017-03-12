@@ -2,8 +2,12 @@ blog_homepage:
     path:     /
     defaults: { _controller: BlogBundle:Default:index }
 
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+blog_admin:
+    path: /admin
+    defaults: { _controller: BlogBundle:Admin:index }
+
+blog_security:
+    resource: "@BlogBundle/Resources/config/security.yml"
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
